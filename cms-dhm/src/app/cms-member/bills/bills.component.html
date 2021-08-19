@@ -1,0 +1,33 @@
+<h1 class="h3 mb-2 text-gray-800">Danh sách đơn hàng đã hoàn thành </h1>
+
+<div class="card shadow mb-4" style="margin-top: 15px;">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-dark">Danh sách đơn hàng</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listDataSuccess">
+                        <td><a class="text-decoration-none" routerLink="detail-bill/{{item.sku}}">{{item.sku}}</a></td>
+                        <td>{{item.namecustom}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.address}}</td>
+                        <td><span class="badge badge-success">Hoàn thành</span></td>
+                        <td>{{item.createdate | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

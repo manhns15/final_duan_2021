@@ -1,0 +1,38 @@
+#Store-DHM
+Header-top : mã màu : rgb(240,240,233)
+Header-bottom: mã màu: rgb(255,255,255)
+Footer : mã màu : rgb(240,240,233)
+Logo : Logo1.png
+Font chữ : "Open Sans", sans-serif;
+	    color : #333	
+Button: background color : black;
+	color : #fff
+input : background color : while
+	color: #696763
+
+#CMS-DHM
+Topbar : background color : #fff
+	 color: rgb(240,240,233)
+	 font chữ : '-apple-system,BlinkMacSystemFont,
+			"Segoe UI",Roboto,"Helvetica Neue"
+			,Arial,"Noto Sans","Liberation Sans",sans-serif,
+			"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+Sidebar : background-color: #373737;
+    	background-image: linear-gradient(180deg, #353535 10%, #f0ce77 100%);
+	  font chữ : '-apple-system,BlinkMacSystemFont,
+			"Segoe UI",Roboto,"Helvetica Neue"
+			,Arial,"Noto Sans","Liberation Sans",sans-serif,
+			"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+Content : background-color:#f8f9fc 
+	  color : #858796,#4e73df
+	  font chữ :'-apple-system,BlinkMacSystemFont,
+			"Segoe UI",Roboto,"Helvetica Neue"
+			,Arial,"Noto Sans","Liberation Sans",sans-serif,
+			"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	  button : color : white
+		   background color : #343a40, #dc3545, #73ddff
+	  input : background-color : white
+		  color : #858796
+		   
+Footer : background color : while
+	 color: #e3e6f0

@@ -1,0 +1,34 @@
+<div class="grid align__item">
+    <div class="register">
+      <div class="logo">
+        <img src="/assets/dhm_logo.png" width="150" alt="">
+      </div>
+      <h2>Đăng nhập</h2>
+      <form action="" method="post" class="form" *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm">
+        <div class="form__field">
+          <input type="text" placeholder="Tài khoản" name="username" [(ngModel)]="form.username" required
+            #username="ngModel" autocomplete="off">
+          <div class="alert alert-danger" role="alert" *ngIf="username.errors && f.submitted">
+            Tài khoản không được để trống!
+          </div>
+        </div>
+        <div class="form__field">
+          <input type="password" placeholder="Mật khẩu" name="password" id="password" autocomplete="off"
+            [(ngModel)]="form.password" required minlength="6" #password="ngModel">
+          <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors.required">Mật khẩu không được để trống!</div>
+            <div *ngIf="password.errors.minlength">
+              Mật khẩu nhiều hơn 6 ký tự
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+            {{ errorMessage }}
+          </div>
+          <div class="form__field pt-3">
+            <input type="submit" value="Đăng nhập">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

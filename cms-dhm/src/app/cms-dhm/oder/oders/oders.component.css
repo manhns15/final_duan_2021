@@ -1,0 +1,9 @@
+.icon-color {
+  list-style: none;
+}
+.icon-color .icon-color-yellow{
+  color: yellow;
+}
+.icon-color .icon-color-red{
+  color: red;
+}

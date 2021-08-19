@@ -1,0 +1,94 @@
+<h1 class="h3 mb-2 text-gray-800">Thương hiệu</h1>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card shadow mb-4" style="margin-top: 15px;">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-dark">Danh sách thương hiệu</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Tên thương hiệu</th>
+                                        <th>Ghi chú</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listCategory | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.decription}}</td>
+                                        <td>{{item.createdate | date:'dd/MM/yyy'}}</td>
+                                        <td>
+                                            <div class="btn-option">
+                                                <button class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fas fa-edit" (click)="update(item)"></i></button>
+                                                <button class="btn btn-danger btn-sm ml-3" type="button" (click)="delete(item.id)">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                </tbody>
+              </table>
+              <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
+                [collectionSize]="listCategory.length"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5" style="padding-top: 15px;">
+        <form [formGroup]="inputForm">
+          <div class="card">
+            <div class="card-header py-3">
+              <h3 class="m-0 font-weight-bold text-dark">Thêm thương hiệu</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Tên thương hiệu</label>
+                <input type="text" class="form-control" formControlName="name"
+                  [ngClass]="{ 'is-invalid': iF.name.touched && iF.name.errors }" />
+                <div *ngIf="iF.name.touched && iF.name.errors" class="invalid-feedback" style="margin-top: 5px;">
+                  <div *ngIf="iF.name.errors.required" class="fa fa-exclamation-triangle"><span class="ml-1">Tên thương
+                      hiệu không được để trống</span>
+                  </div>
+                  <div *ngIf="iF.name.errors.minLength" class="fa fa-exclamation-triangle"><span class="ml-1">Tên thương
+                      hiệu không được ngắn quá</span>
+                  </div>
+                  <div *ngIf="iF.name.errors.maxLength" class="fa fa-exclamation-triangle"><span class="ml-1">Tên thương
+                      hiệu tối đa 50 kí tự</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="example">Ghi chú</label>
+                <input type="text" class="form-control" formControlName="decription"
+                  [ngClass]="{ 'is-invalid': iF.decription.touched && iF.decription.errors }" />
+                <div *ngIf="iF.decription.touched && iF.decription.errors" class="invalid-feedback"
+                  style="margin-top: 5px;">
+                  <div *ngIf="iF.decription.errors.required" class="fa fa-exclamation-triangle"><span class="ml-1">Ghi
+                      chú không được để trống</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="padding-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-sm" *ngIf="!itemSelected"
+                  (click)="add()">Lưu</button>&nbsp;
+                <button type="submit" class="btn btn-primary btn-sm" *ngIf="itemSelected"
+                  (click)="edit()">SỬa</button>&nbsp;
+                <button type="submit" class="btn btn-danger btn-sm" (click)="clear()">Hủy</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

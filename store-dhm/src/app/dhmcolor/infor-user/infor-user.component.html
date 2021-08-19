@@ -1,0 +1,84 @@
+<div class="container">
+    <h2 class="title text-center">Thông tin cá nhân</h2>
+    <div class="container">
+        <form action="">
+            <div class="row profile">
+                <div class="col-md-3">
+                    <div class="profile-sidebar ">
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' id="imageUpload" (change)="onFileChanged($event)"
+                                    accept=".png, .jpg, .jpeg" />
+                                <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview">
+                                <div *ngIf="nameFiles!=null" id="imagePreview">
+                                    <img [src]="'http://localhost:5000/images/' + nameFiles" class="avatar-preview img-responsive"
+                                        alt="Thông tin cá nhân">
+                                </div>
+                                <div *ngIf="nameFiles==null" id=" imagePreview">
+                                    <img src="assets/images/51f6fb256629fc755b8870c801092942.png" class="img-responsive"
+                                        alt="Thông tin cá nhân">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">Tên đăng nhập: {{username}}</div>
+                            <div class="profile-usertitle-job"> Khách hàng</div>
+                        </div>
+                        <div class="profile-userbuttons">
+                            <button type="button" class="btn btn-success btn-sm" routerLink="/">Trang chủ</button>
+                            <button type="button" class="btn btn-danger btn-sm" routerLink="/">Thoát ra</button>
+                        </div>
+                        <div class="profile-usermenu">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                        Cập nhật thông tin cá nhân </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 profile-sidebar">
+                    <div class="my-account-section__header">
+                        <div class="my-account-section__header-left">
+                            <div class="my-account-section__header-title">Hồ sơ của tôi</div>
+                            <div class="my-account-section__header-subtitle">Quản lý thông tin hồ sơ để bảo mật tài
+                                khoản
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-account-profile__left" [formGroup]="inforForm">
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="">Họ và tên</label>
+                                <input type="text" class="inp_checkout form-control" formControlName="fullname">
+                                <label for="">Số điện thoại</label>
+                                <input type="text" class="inp_checkout form-control" formControlName="sdt">
+                            </div>
+                            <div class="col">
+                                <label for="">Email</label>
+                                <input type="text" class="inp_checkout form-control" formControlName="email">
+                                <label for="">Địa chỉ</label>
+                                <input type="text" class="inp_checkout form-control" formControlName="addr">
+                            </div>
+                        </div>
+                        <div class="profile-sm">
+                            <button type="submit" class="btn btn-success btn-sm" (click)="updateUser()">Thay đổi</button>
+                            <button type="submit" class="btn btn-danger btn-sm" disabled>Hủy</button>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>

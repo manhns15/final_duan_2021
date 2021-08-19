@@ -1,0 +1,45 @@
+<h1 class="h3 mb-2 text-gray-800">Tài khoản</h1>
+<a routerLink="/add-account"><button class="btn btn-dark">Thêm tài khoản</button></a>
+
+
+<div class="card shadow mb-4" style="margin-top: 15px;">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-dark">Danh sách khách hàng</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên nhân viên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Chức vụ</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listUser | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                        <td>{{item.username}}</td>
+                        <td>{{item.sodienthoai}}</td>
+                        <td>{{item.email}}</td>
+                        <td>Nhân viên</td>
+                        <td><span class="badge badge-warning">{{item.status ? "On" : "Off"}}</span></td>
+                        <td>{{item.createdate | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <div class="btn-option">
+                                <button class="btn btn-dark btn-sm" type="button" [routerLink]="['/edit-account',item.id]">
+                                        <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
+                          [collectionSize]="listUser.length"></ngb-pagination>
+        </div>
+    </div>
+</div>

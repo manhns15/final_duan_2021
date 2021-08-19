@@ -1,0 +1,100 @@
+<h1 class="h3 mb-2 text-gray-800">Tạo đơn hàng</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card shadow mb-4 mt-15">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-dark">Thông tin đơn hàng: <span>{{sku}}</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                        <th>Size</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor = "let item of listOrderBySku">
+                                        <td>{{item.productDetail.product.nameproduct}}</td>
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm qty-inp"
+                                                placeholder="" value="{{item.quantity}}" disabled>
+                                        </td>
+                                        <td>{{item.productDetail.product.priceProduct | number}}đ</td>
+                                        <td>{{item.productDetail.size.namesize}}</td>
+                                        <td>{{item.quantity * item.productDetail.product.priceProduct | number}}đ</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div>
+                                        <p>VAT: </p>
+                                        <p>Tổng tiền: </p>
+                                        <p>Đã thanh toán: </p>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <p>10%</p>
+                                    <p>{{totalPrice | number}}đ</p>
+                                    <p>{{totalPrice | number}}đ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mt-15">
+                <div class="card">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-dark">Thông tin khách hàng</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên khách hàng</label>
+                            <input type="text" class="form-control" value="{{nameuser}}" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            <input type="text" class="form-control" value="{{sdt}}" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="text" class="form-control" value="{{email}}" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <input type="text" class="form-control" value="{{addr}}" disabled />
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
+                                [checked]="paymentmethod == 0" disabled>
+                            <label class="custom-control-label" for="customRadio1">Thanh toán tiền mặt tại cửa
+                                hàng</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" [checked]="paymentmethod == 1"
+                                disabled>
+                            <label class="custom-control-label" for="customRadio2">Thanh toán qua chuyển khoản</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

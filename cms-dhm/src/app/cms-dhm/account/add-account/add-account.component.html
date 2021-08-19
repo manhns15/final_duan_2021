@@ -1,0 +1,93 @@
+<h1 class="h3 mb-2 text-gray-800">Thêm tài khoản</h1>
+
+<form action="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" [formGroup]="registerForm">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tên tài khoản</label>
+                                <input type="text" class="form-control" formControlName="username"
+                                       [ngClass]="{ 'is-invalid': iF.username.touched && iF.username.errors }"/>
+                              <div *ngIf="iF.username.touched && iF.username.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.username.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Tài khoản khách hàng không được để trống</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Số điện thoại</label>
+                                <input type="text" class="form-control" formControlName="sodienthoai"
+                                       [ngClass]="{ 'is-invalid': iF.sodienthoai.touched && iF.sodienthoai.errors }"/>
+                              <div *ngIf="iF.sodienthoai.touched && iF.sodienthoai.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.sodienthoai.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Số điện thoại khách hàng không được để trống</span>
+                                </div>
+                                <div *ngIf="iF.sodienthoai.errors.pattern" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Số điện thoại khách hàng không đúng định dạng</span></div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" class="form-control" formControlName="email"
+                                       [ngClass]="{ 'is-invalid': iF.email.touched && iF.email.errors }" />
+                              <div *ngIf="iF.email.touched && iF.email.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.email.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Email khách hàng không được để trống</span>
+                                </div>
+                                <div *ngIf="iF.email.errors.pattern" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Email khách hàng không đúng định dạng</span></div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Chức vụ</label>
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="role"
+                                        [ngClass]="{ 'is-invalid': iF.role.touched && iF.role.errors }" >
+                                    <option value="">Chọn chức vụ</option>
+                                    <option value="mod">Nhân viên</option>
+                                </select>
+                              <div *ngIf="iF.role.touched && iF.role.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.role.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Role khách hàng không được để trống</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Trạng thái</label>
+                                <div class="col p-1">
+                                    <label class="switch">
+                                        <input type="checkbox" formControlName="status">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mật khẩu </label>
+
+
+                                <input type="password" class="form-control" formControlName="password" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group pt-3">
+        <button type="submit" class="btn btn-primary btn-sm" (click)="onAdd()">Lưu</button>&nbsp;
+        <button type="submit" class="btn btn-danger btn-sm" (click)="cancel()">Hủy</button>
+    </div>
+</form>

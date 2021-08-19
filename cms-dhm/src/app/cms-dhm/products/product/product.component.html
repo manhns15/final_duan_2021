@@ -1,0 +1,61 @@
+<h1 class="h3 mb-2 text-gray-800">Sản phẩm</h1>
+<a routerLink="/add-product"><button class="btn btn-dark">Thêm sản phẩm</button></a>
+<div class="card shadow mb-4" style="margin-top: 15px;">
+    <div class="row card-header py-3" [formGroup]="searchForm">
+        <div class="col-md-6">
+            <h3 class="m-0 font-weight-bold text-dark">Danh sách sản phẩm</h3>
+
+        </div>
+        <div class="input-group col-md-6" >
+            <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" value="" formControlName="nameproduct">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" (click)="searchProduct()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-sm">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listProduct | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+
+                        <td>{{item.nameproduct}}</td>
+                        <td *ngIf="item.image!=null"><img [src]="'http://localhost:5000/images/' + item.image" width="80" alt=""></td>
+                        <td *ngIf="item.image==null"><img [src]="'http://localhost:5000/images/' + item.image" width="80" alt=""></td>
+                        <td>{{item.priceProduct | number}} <sup>₫</sup></td>
+                        <td *ngIf="item.status != 0"><span class="badge badge-success">{{getText(item.status)}}</span>
+                        </td>
+                        <td *ngIf="item.status == 0"><span class="badge badge-danger">{{getText(item.status)}}</span>
+                        </td>
+                        <td>{{item.createdate | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <div class="btn-option">
+                                <button class="btn btn-dark btn-sm" type="button"
+                                    [routerLink]="['/edit-product',item.id]">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-danger btn-sm" type="button" (click)="delete(item)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
+                [collectionSize]="listProduct.length"></ngb-pagination>
+        </div>
+    </div>
+</div>

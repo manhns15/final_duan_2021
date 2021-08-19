@@ -1,0 +1,66 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="about">
+
+                <div class="col-sm-3">
+                    <div class="left-sidebar">
+                        <h2>Danh mục</h2>
+                        <div class="panel-group category-products" id="accordian">
+                            <!--category-productsr-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="color: #696763; text-transform: uppercase;"
+                                    type="button" routerLink="/about">
+                                    <h4 class="panel-title">Tất cả</h4>
+                                </div>
+                                <hr>
+                                <div class="panel-heading" *ngFor="let item of listCategory">
+                                    <h4 class="panel-title" routerLink="{{item.id}}">
+                                        <a>{{item.name}}</a>
+                                        <hr>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/category-products-->
+                        <div class="shipping text-center">
+                            <!--shipping-->
+                            <img src="/assets/images/Khoác lên mình những thương hiệu lớn.png" alt="" />
+                        </div>
+                        <!--/shipping-->
+                    </div>
+                </div>
+                <div class="col-sm-9 padding-right">
+                    <div class="features_items">
+                        <h2 class="title text-center">Sản phẩm</h2>
+                        <div class="row">
+                            <div class="col-sm-4"
+                                *ngFor="let item of listProduct | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <div class="product-at ">
+                                                <div class="pro-grid">
+                                                    <span class="buy-in"
+                                                        routerLink="/about/product-detail/{{item.id}}">Xem
+                                                        chi tiết</span>
+                                                </div>
+                                                <img [src]="'http://localhost:5000/images/' + item.image" alt="" routerLink="cart" />
+                                            </div>
+                                            <div class="p-3" routerLink="/about/product-detail/{{item.id}}">
+                                                <h2>{{item.priceProduct | number}} <sup>₫</sup></h2>
+                                                <p>{{item.nameproduct}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+                        [collectionSize]="listProduct.length"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

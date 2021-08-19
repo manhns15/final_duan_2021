@@ -1,0 +1,49 @@
+<section>
+    <div class="rt-container">
+        <div class="col-rt-12">
+            <div class='demo-container'>
+                <div class='carousel'>
+                    <input checked='checked' class='carousel__activator' id='carousel-slide-activator-1' name='carousel'
+                        type='radio'>
+                    <input class='carousel__activator' id='carousel-slide-activator-2' name='carousel' type='radio'>
+                    <input class='carousel__activator' id='carousel-slide-activator-3' name='carousel' type='radio'>
+                    <div class='carousel__controls'>
+                        <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-2'>
+                            <i class="fa fa-angle-right"></i>
+                        </label>
+                    </div>
+                    <div class='carousel__controls'>
+                        <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-1'>
+                            <i class="fa fa-angle-left"></i>
+                        </label>
+                        <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-3'>
+                            <i class="fa fa-angle-right"></i>
+                        </label>
+                    </div>
+                    <div class='carousel__controls'>
+                        <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-2'>
+                            <i class="fa fa-angle-left"></i>
+                        </label>
+                    </div>
+                    <div class='carousel__screen'>
+                        <div class='carousel__track'>
+                            <div class='carousel__item carousel__item--mobile-in-1 carousel__item--tablet-in-2 carousel__item--desktop-in-3'
+                                *ngFor="let item of listProduct">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center pb-3"
+                                            routerLink="/about/product-detail/{{item.id}}">
+                                            <img [src]="'http://localhost:5000/images/' + item.image" alt="" />
+                                            <h2>{{item.priceProduct | number}} vnđ</h2>
+                                            <p>{{item.nameproduct}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,78 @@
+<h1 class="h3 mb-2 text-gray-800">Danh sách đơn hàng </h1>
+
+<form [formGroup]="searchForm">
+    <div class="row">
+        <div class="col-8">
+            <div class="input-group">
+                <input type="text" class="form-control" formControlName="search"
+                    placeholder="Tìm kiếm theo mã đơn hàng">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button" (click)="searchSku()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex">
+
+            <select class="form-control" formControlName="status" (change)="getOrderByStatus($event)">
+                <option value="">Tất cả</option>
+                <option value="0">Chờ xác nhận</option>
+                <option value="1">Chờ lấy hàng</option>
+                <option value="2">Đang giao</option>
+                <option value="3">Thành công </option>
+                <option value="4">Hủy</option>
+            </select>
+        </div>
+
+    </div>
+</form>
+<div class="card shadow mb-4" style="margin-top: 15px;">
+    <div class="row card-header py-3">
+      <div class="col-md-9">
+        <h3 class="m-0 font-weight-bold text-dark">Danh sách đơn hàng</h3>
+      </div>
+      <div class="col-md-3">
+        <h3 class="m-0 font-weight-bold text-dark">Chú thích: </h3>
+        <ul class="icon-color">
+          <li><i class="fa fa-circle icon-color-yellow mr-1" aria-hidden="true"></i> Số điện thoại đã hủy dưới 3 lần</li>
+          <li><i class="fa fa-circle icon-color-red mr-1" aria-hidden="true"></i> Số điện thoại đã hủy trên 3 lần</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Trạng thái</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listOrder | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                        <td><a class="text-decoration-none" [routerLink]="['/detail-order',item.sku]">{{item.sku}}</a></td>
+                        <td>{{item.namecustom}}</td>
+                        <td *ngIf="item.boom == 0">{{item.phone}}</td>
+                        <td class="border-color-warning" *ngIf="item.boom != 0 && item.boom < 3">{{item.phone}}</td>
+                        <td class="border-color-danger" *ngIf="item.boom >= 3">{{item.phone}}</td>
+                        <td >{{item.address}}</td>
+                        <td *ngIf="item.status == 0"><span class="badge badge-primary">Chờ xác nhận</span></td>
+                        <td *ngIf="item.status == 1"><span class="badge badge-warning">Chờ lấy hàng</span></td>
+                        <td *ngIf="item.status == 2"><span class="badge badge-dark">Đang giao</span></td>
+                        <td *ngIf="item.status == 3"><span class="badge badge-success">Thành công</span></td>
+                        <td *ngIf="item.status == 4"><span class="badge badge-danger">Hủy</span></td>
+                        <td>{{item.totalMonenyOrder | number}} vnđ</td>
+                    </tr>
+                </tbody>
+            </table>
+          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
+                          [collectionSize]="listOrder.length"></ngb-pagination>
+        </div>
+    </div>
+</div>

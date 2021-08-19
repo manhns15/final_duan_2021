@@ -1,0 +1,320 @@
+<div class="container pb-5">
+  <h2 class="title text-center">Đơn Mua</h2>
+
+  <input class="dn" type="radio" name="tab" id="tab-1" checked>
+  <input class="dn" type="radio" name="tab" id="tab-2">
+  <input class="dn" type="radio" name="tab" id="tab-3">
+  <input class="dn" type="radio" name="tab" id="tab-4">
+  <input class="dn" type="radio" name="tab" id="tab-5">
+  <input class="dn" type="radio" name="tab" id="tab-6">
+
+  <div class="tabs-wrapper">
+    <label for="tab-1" class="label-tab-1"> Tất cả</label>
+    <label for="tab-2" class="label-tab-2" (click)="getOrderUserByStatus0()"> Chờ xác nhận </label>
+    <label for="tab-3" class="label-tab-3" (click)="getOrderUserByStatus1()">Chờ lấy hàng</label>
+    <label for="tab-4" class="label-tab-4" (click)="getOrderUserByStatus2()"> Đang giao</label>
+    <label for="tab-5" class="label-tab-5" (click)="getOrderUserByStatus3()">Thành công</label>
+    <label for="tab-6" class="label-tab-6" (click)="getOrderUserByStatus4()">Đã hủy</label>
+  </div>
+
+  <div class="tab tab-1">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrder">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="tab tab-2">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrderByStatus0">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="tab tab-3">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrderByStatus1">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="tab tab-4">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrderByStatus2">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="tab tab-5">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrderByStatus3">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="tab tab-6">
+    <div class="container">
+      <div class="detail-shop">
+        <div class=" order-content__header">
+          <div class="order-content__header__seller">
+            <div class="dhm-avatar">
+              <div class="dhm-avatar__placeholder">
+              </div>
+              <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+            </div><span class="order-content__header__seller__name">DHM Color</span>
+            <div class="order-content__header__seller__chat-btn"></div>
+            <div class="order-content__header__seller__view-shop-btn"></div>
+          </div>
+          <div class="order-content__header__flex-placeholder"></div>
+          <div class="order-delivery-status__wrapper"></div>
+          <div class="order-content-status">Đã Mua</div>
+        </div>
+      </div>
+      <div class="order-content__item-list" *ngFor ="let item of listOrderByStatus4">
+        <a class="order-content__item-wrapper" [routerLink]="['/detail-bill',item.sku]">
+          <div class="order-content__item order-content__item--last">
+            <div class="order-content__item__col order-content__item__detail">
+              <div class="order-content__item__product">
+                <div class="order-content__item__image">
+                  <div class="dhm-image__wrapper">
+                    <div class="dhm-image__place-holder">
+                    </div>
+                    <div class="dhm-image__content">
+                      <div class="dhm-image__content--blur">
+                        <img src="/assets/images/box.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-content__item__detail-content">
+                  <div class="order-content__item__name">MÃ ĐƠN HÀNG: {{item.sku}}</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+              <div class="order-content__item__price-text">
+                <div class="">{{item.totalMonenyOrder | number}}₫</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

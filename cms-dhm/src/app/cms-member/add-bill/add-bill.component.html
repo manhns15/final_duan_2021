@@ -1,0 +1,144 @@
+<h1 class="h3 mb-2 text-gray-800">Tạo đơn hàng</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card shadow mb-4 mt-15">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-dark">Thông tin đơn hàng:
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="input-group mb-3" [formGroup]="searchForm">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm SKU sản phẩm" formControlName="sku">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" (click)="searchProductBySku()"><i
+                                            class="fas fa-search-plus"></i></button>
+                                </div>
+                            </div>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" width="400px">Tên sản phẩm</th>
+                                        <th scope="col" width="100px">Số lượng</th>
+                                        <th scope="col" width="300px">Giá</th>
+                                        <th scope="col" width="100px">Size</th>
+                                        <th scope="col" width="300px">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="listProduct">
+                                    <tr *ngFor="let item of listProduct">
+                                        <td>{{item.product.nameproduct}}</td>
+                                        <td>
+                                          <div class="buttons_added">
+                                            <input class="minus is-form" (click)="incrementQuantity(item)" type="button"
+                                                   [disabled]="item.priceProductDetail == 1" value="-">
+                                            <input aria-label="quantity" class="input-qty" min="1"
+                                                   value="{{item.priceProductDetail}}" disabled name="" type="number">
+                                            <input class="plus is-form" (click)="tangsoluong(item)" type="button"
+                                                   value="+" [disabled]="item.priceProductDetail == item.quantityProduct">
+                                          </div>
+                                        </td>
+                                        <td>{{item.product.priceProduct | number}} đ</td>
+                                        <td>{{item.size.namesize}}</td>
+                                        <td>{{item.priceProductDetail * item.product.priceProduct | number}} đ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div>
+                                        <p>Tổng tiền: </p>
+                                        <p>VAT: </p>
+                                        <p>Đã thanh toán: </p>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <p>{{totalPrice | number}}</p>
+                                    <p>10%</p>
+                                    <p>{{(totalPrice/10)+totalPrice | number}} đ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mt-15">
+                <div class="card">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-dark">Thông tin khách hàng</h3>
+                    </div>
+                    <div class="card-body" [formGroup]="inputForm">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên khách hàng</label>
+                            <input type="text" class="form-control" formControlName="name"
+                                   [ngClass]="{ 'is-invalid': iF.name.touched && iF.name.errors }"/>
+                          <div *ngIf="iF.name.touched && iF.name.errors" class="invalid-feedback"
+                               style="margin-top: 7px;">
+                            <div *ngIf="iF.name.errors.required" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Họ tên không được để trống</span></div>
+                            <div *ngIf="iF.name.errors.minLength" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Họ tên quá ngắn</span></div>
+                            <div *ngIf="iF.name.errors.maxLength" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Họ tên quá dài</span></div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            <input type="text" class="form-control"formControlName="phone"
+                                   [ngClass]="{ 'is-invalid': iF.phone.touched && iF.phone.errors }"/>
+                          <div *ngIf="iF.phone.touched && iF.phone.errors" class="invalid-feedback"
+                               style="margin-top: 7px;">
+                            <div *ngIf="iF.phone.errors.required" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Số điện thoại khách hàng không được để trống</span></div>
+                            <div *ngIf="iF.phone.errors.pattern" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Số điện thoại không đúng định dạng</span></div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': iF.email.touched && iF.email.errors }" />
+                          <div *ngIf="iF.email.touched && iF.email.errors" class="invalid-feedback"
+                               style="margin-top: 7px;">
+                            <div *ngIf="iF.email.errors.required" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Email khách hàng không được để trống</span></div>
+                            <div *ngIf="iF.email.errors.pattern" class="fa fa-exclamation-triangle"><span
+                              class="ml-1">Email của bạn không đúng định dạng</span></div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <input type="text" class="form-control" formControlName="addr" [ngClass]="{ 'is-invalid': iF.addr.touched && iF.addr.errors }" />
+                            <div *ngIf="iF.addr.touched && iF.addr.errors" class="invalid-feedback"
+                                 style="margin-top: 7px;">
+                              <div *ngIf="iF.addr.errors.required" class="fa fa-exclamation-triangle"><span
+                                class="ml-1">Địa chỉ khách hàng không được để trống</span></div>
+                            </div>
+                        </div>
+                      <label class="form-group">
+                        <label for="payment">Thanh toán</label>
+                        <div>
+                          <input name="type" type="radio" value="0" formControlName="type" />
+                          Thanh toán khi nhận hàng <br>
+                          <input name="type" type="radio" value="1" formControlName="type" />
+                          Thanh toán qua chuyển khoản
+                        </div>
+                      </label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="form-group pt-2">
+    <button type="submit" class="btn btn-primary btn-sm" (click)="addOrder()">Tạo</button>&nbsp;
+    <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+</div>

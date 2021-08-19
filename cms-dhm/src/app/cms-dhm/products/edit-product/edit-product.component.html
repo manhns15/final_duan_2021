@@ -1,0 +1,212 @@
+<h1 class="h3 mb-2 text-gray-800">Sửa thông tin sản phẩm</h1>
+<div class="row">
+    <div class="col-md-12">
+        <form action="">
+            <div class="row" [formGroup]="inputForm">
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Form -->
+
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Tên sản phẩm</label>
+                              <input type="text" class="form-control" formControlName="nameproduct"
+                                     [ngClass]="{ 'is-invalid': iF.nameproduct.touched && iF.nameproduct.errors }" />
+                              <div *ngIf="iF.nameproduct.touched && iF.nameproduct.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.nameproduct.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Tên sản phẩm khách hàng không được để trống</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-4 col-lg-2 col-form-label">Hình ảnh</label>
+                                <div *ngIf="nameFiles!=null" class="col-md-3">
+                                    <img [src]="'http://localhost:5000/images/' + nameFiles" class="img-responsive"
+                                        width="100" />
+                                </div>
+                                <div *ngIf="nameFiles==null" class="col-md-3">
+                                    <img  class="img-responsive"
+                                        width="100" />
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card row">
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <div>
+                                                    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+                                                        <div class="upload-btn-wrapper">
+                                                            <input id="uploadimg" type="file" name="myfile"   (change)="onFileChanged($event)" formControlName="image"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Giá</label>
+                              <input type="text" class="form-control" formControlName="priceProduct"
+                                     [ngClass]="{ 'is-invalid': iF.priceProduct.touched && iF.priceProduct.errors }"/>
+                              <div *ngIf="iF.priceProduct.touched && iF.priceProduct.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.priceProduct.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Giá tiền không được để trống</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Mô tả</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        formControlName="decription"
+                                        [ngClass]="{ 'is-invalid': iF.decription.touched && iF.decription.errors }"></textarea>
+                              <div *ngIf="iF.decription.touched && iF.decription.errors" class="invalid-feedback"
+                                   style="margin-top: 5px;">
+                                <div *ngIf="iF.decription.errors.required" class="fa fa-exclamation-triangle"><span
+                                  class="ml-1">Mô tả không được để trống</span>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-20">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="exampleInputEmail1">Màu sắc</label>
+                                                <div class="form-group">
+                                                  <select class="form-select" aria-label="Default select example" formControlName="idcolor"
+                                                          [ngClass]="{ 'is-invalid': iF.idcolor.touched && iF.idcolor.errors }">
+                                                    <option value="">Chọn màu</option>
+                                                    <option *ngFor="let item of listColor" value="{{item.id}}">{{item.namecolor}}</option>
+                                                  </select>
+                                                  <div *ngIf="iF.idcolor.touched && iF.idcolor.errors" class="invalid-feedback"
+                                                       style="margin-top: 5px;">
+                                                    <div *ngIf="iF.idcolor.errors.required" class="fa fa-exclamation-triangle"><span
+                                                      class="ml-1">Vui lòng chọn màu</span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="exampleInputEmail1">Size</label>
+                                                <div class="form-group">
+                                                  <select class="form-select" aria-label="Default select example" formControlName="idsize"
+                                                          [ngClass]="{ 'is-invalid': iF.idsize.touched && iF.idsize.errors }">
+                                                    <option value="">Chọn size</option>
+                                                    <option *ngFor="let item of listSize" value="{{item.id}}">{{item.namesize}}
+                                                  </select>
+                                                  <div *ngIf="iF.idsize.touched && iF.idsize.errors" class="invalid-feedback"
+                                                       style="margin-top: 5px;">
+                                                    <div *ngIf="iF.idsize.errors.required" class="fa fa-exclamation-triangle"><span
+                                                      class="ml-1">Vui lòng chọn size</span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <label for="exampleInputEmail1">Số lượng</label>
+                                              <div class="form-group">
+                                                <input type="number" class="form-control" min="1"
+                                                       formControlName="quantityProduct" [ngClass]="{ 'is-invalid': iF.quantityProduct.touched && iF.quantityProduct.errors }"/>
+                                              </div>
+                                              <div *ngIf="iF.quantityProduct.touched && iF.quantityProduct.errors" class="invalid-feedback"
+                                                   style="margin-top: 5px;">
+                                                <div *ngIf="iF.quantityProduct.errors.required" class="fa fa-exclamation-triangle"><span
+                                                  class="ml-1">Vui lòng nhập số lượng</span>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" id="dataTable" width="100%"
+                                                        cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Màu</th>
+                                                                <th>Size</th>
+                                                                <th>Số lượng</th>
+                                                                <th>Trạng thái</th>
+                                                                <th>Tùy chọn</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of listColorSize">
+                                                                <td>{{item.idcolor}}</td>
+                                                                <td>{{item.idsize}}</td>
+                                                                <td>{{item.quantityProduct}}</td>
+                                                                <td>
+                                                                  <div class="col p-1 form-group" [formGroup]="inputForm">
+                                                                    <label class="switch">
+                                                                      <input type="checkbox" formControlName="statussize">
+                                                                      <span class="slider round"></span>
+                                                                    </label>
+                                                                  </div>
+                                                                </td>
+                                                                <td>
+                                                                  <button type="submit" (click)="xoa(item)" class="btn btn-danger btn-sm">Xóa</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success btn-sm" (click)="addColor()">Tạo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-20">
+                                        <div class="form-group pt-2">
+                                            <label for="exampleInputEmail1">Trạng thái</label>
+                                            <div class="col p-1">
+                                                <label class="switch">
+                                                    <input type="checkbox" formControlName="status">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="">Thương hiệu</label>
+                                          <select class="form-select" aria-label="Default select example"
+                                                  formControlName="idcategory" [ngClass]="{ 'is-invalid': iF.idcategory.touched && iF.idcategory.errors }">
+                                            <option value="">Mời bạn chọn thương hiệu</option>
+                                            <option *ngFor="let items of listCategory" value="{{items.id}}">
+                                              {{items.name}}</option>
+                                          </select>
+                                          <div *ngIf="iF.idcategory.touched && iF.idcategory.errors" class="invalid-feedback"
+                                               style="margin-top: 5px;">
+                                            <div *ngIf="iF.idcategory.errors.required" class="fa fa-exclamation-triangle"><span
+                                              class="ml-1">Vui lòng chọn thương hiệu</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group" style="padding-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-sm" (click)="update()">Lưu</button>&nbsp;
+                <button type="submit" class="btn btn-danger btn-sm" (click)="cancel()">Hủy</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+<h1 class="h3 mb-2 text-gray-800">Chi tiết đơn hàng</h1>
+<div class="row">
+  <div class="col-12">
+    <ol class="progtrckr" data-progtrckr-steps="4">
+      <li [ngClass]="status >= 0 && status <= 3 ? 'progtrckr-done' : 'progtrckr-todo'"
+        class="progtrckr-status status-1"> <span class="trang-thai">Chờ xác nhận</span>
+      </li>
+      <li [ngClass]="status >= 1 && status <= 3 ? 'progtrckr-done' : 'progtrckr-todo'"
+        class="progtrckr-status status-2"> <span class="trang-thai">Chờ lấy hàng</span>
+      </li>
+      <li [ngClass]="status >= 2 && status <= 3 ? 'progtrckr-done' : 'progtrckr-todo'"
+        class="progtrckr-status status-3"> <span class="trang-thai">Đang giao</span>
+      </li>
+      <li [ngClass]="status === 3 ? 'progtrckr-done' : 'progtrckr-todo'" class="progtrckr-status status-4"> <span
+          class="trang-thai">Hoàn thành</span>
+      </li>
+      <li [ngClass]="status === 4 ? 'progtrckr-close' : 'progtrckr-todo'" class="progtrckr-status status-5"> <span
+          class="trang-thai-huy">Hủy</span>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="card shadow mb-4 mt-15">
+          <div class="row card-header py-3">
+
+            <div class="col-md-6">
+              <h3 class="m-0 font-weight-bold text-dark">Thông tin đơn hàng: <span>{{sku}}</span>
+              </h3>
+            </div>
+            <div class="col-md-6" [formGroup]="statusForm">
+              <select class="form-control form-control-sm" formControlName="statusSelect" [disabled]="status === 4">
+                <option value="0" [disabled]="status >= 0 && status <= 4">Chờ xác nhận</option>
+                <option value="1" [disabled]="status >= 1 && status <= 4">Chờ lấy hàng</option>
+                <option value="2" [disabled]="status >= 2 && status <= 4">Đang giao</option>
+                <option value="3" [disabled]="status === 3">Thành công</option>
+                <option value="4" [disabled]="status === 3">Hủy</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div class="input-group mb-3" [formGroup]="searchForm">
+                <input type="text" class="form-control" placeholder="Tìm kiếm SKU sản phẩm" formControlName="sku">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit" [disabled]="status > 0"
+                    (click)="searchProductBySku()"><i class="fas fa-search-plus"></i></button>
+                </div>
+              </div>
+            </div>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Tên sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Giá</th>
+                  <th>Size</th>
+                  <th>Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listOrderBySku">
+                  <td>{{item.productDetail.product.nameproduct}}</td>
+                  <td>
+                    <input class="minus is-form" (click)="incrementQuantity(item)" type="button"
+                      [disabled]="item.quantity == 1" value="-">
+                    <input class="qty-inp" value="{{item.quantity}}" placeholder="" disabled />
+                    <input class="plus is-form" (click)="tangsoluong(item)" type="button" value="+"
+                      [disabled]="item.quantity == item.productDetail.quantityProduct || status > 0">
+                  </td>
+                  <td>{{item.productDetail.product.priceProduct | number}}đ</td>
+                  <td>
+                    {{item.productDetail.size.namesize}}
+                  </td>
+                  <td>{{item.quantity * item.productDetail.product.priceProduct | number}}đ</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-md-5"></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-6">
+                <div>
+                  <p>VAT: </p>
+                  <p>Tổng tiền: </p>
+                  <p>Tiền cọc: </p>
+                  <p class="pt-2">Chưa thanh toán: </p>
+                  <p class="pt-1" *ngIf="this.st.statusSelect.value == 4">Lí do hủy đơn:</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <p class="text-end">10%</p>
+                <p class="text-end">{{totalPrice | number}}đ</p>
+                <p class="text-end"><input class="form-control form-control-sm" type="number" min="1" [(ngModel)]="coc"
+                    [disabled]="status > 0" (ngModelChange)="modelchange($event)"></p>
+                <p class="text-end">{{totalPrice - coc | number}}đ</p>
+
+                <div class="form-group" *ngIf="this.st.statusSelect.value == 4" [formGroup]="statusForm">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" id="exampleRadios1" formControlName="reason" value="1">
+                    <label class="form-check-label mt-1" for="exampleRadios1">
+                      Cửa hàng hủy
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" formControlName="reason" id="exampleRadios2" value="2">
+                    <label class="form-check-label mt-1" for="exampleRadios2">
+                      Khách không nhận hàng
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 mt-15">
+        <div class="card">
+          <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-dark">Thông tin khách hàng</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Tên khách hàng</label>
+              <input type="text" class="form-control" disabled value="{{nameuser}}" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Số điện thoại</label>
+              <input type="text" class="form-control" disabled value="{{sdt}}" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <input type="text" class="form-control" disabled value="{{email}}" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Địa chỉ</label>
+              <input type="text" class="form-control" disabled value="{{addr}}" />
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" disabled
+                [checked]="paymentmethod == 0">
+              <label class="custom-control-label" for="customRadio1">Thanh toán khi nhận hàng</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" disabled
+                [checked]="paymentmethod == 1">
+              <label class="custom-control-label" for="customRadio2">Thanh toán qua chuyển khoản</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="form-group pt-2">
+  <button type="submit" class="btn btn-primary btn-sm" *ngIf="status != 4" (click)="update()">Cập nhập</button>&nbsp;
+  <button type="submit" class="btn btn-danger btn-sm" (click)="cancel()">Hủy</button>
+</div>

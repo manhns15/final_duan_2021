@@ -1,0 +1,172 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Thống kê</h1>
+</div>
+<div class="form-group row" [formGroup]="searchForm">
+  <div class="col-md-3"></div>
+  <div class="col-md-5 icon-addon">
+    <input type="text" ngxDaterangepickerMd formControlName="dateRange" id="calendar-input" [maxDate]="maxDate"
+      [dateLimit]="31" (change)="dateChanged($event)" class="form-control input-icon vtp-input-border-black"
+      [readonly]="true" style="cursor: pointer; background: white;" [ranges]="ranges()" [alwaysShowCalendars]="true" />
+    <label for="calendar-input" class="fa fa-calendar" rel="tooltip" title="calendar-input"></label>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+<div class="row">
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Tổng tiền hóa đơn</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" *ngIf="totalmoney">Tổng : {{totalmoney | number}} vnđ
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" *ngIf="totalmoney == null">Tổng : {{0 | number}} vnđ
+            </div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Tổng tiền hóa đơn hủy</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" *ngIf="totalmoneyCancle">Tổng : {{totalmoneyCancle |
+              number}} vnđ</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" *ngIf="totalmoneyCancle == null">Tổng : {{0 | number}}
+              vnđ</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Sản phẩm</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{totalProduct}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{totalOrder}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng đang chờ</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{statusAccept}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng chờ lấy</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{statusGetProduct}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng đang giao</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{statusDelivery}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng thành công</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{statusSucces}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-dark shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+              Đơn hàng đã hủy</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Số lượng : {{statusCancel}}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

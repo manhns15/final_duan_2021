@@ -1,0 +1,112 @@
+<div class="container">
+  <h2 class="title text-center">Chi tiết đơn hàng</h2>
+
+</div>
+<div class="container p-5">
+  <div class="order-detail-page__delivery__container-wrapper">
+    <div class="_1AsWWl"></div>
+    <div class="order-detail-page__delivery__container">
+      <div class="order-detail-page__delivery__header">
+        <div class="order-detail-page__delivery__header__title">Địa chỉ nhận hàng</div>
+      </div>
+      <div class="order-detail-page__delivery__content">
+        <div class="order-detail-page__delivery__shipping-address__container">
+          <div class="order-detail-page__delivery__shipping-address">
+            <div class="order-detail-page__delivery__shipping-address__shipping-name">{{user}}</div>
+            <div class="order-detail-page__delivery__shipping-address__detail"><span>Số điện thoại: {{phone}}</span>
+              <br>Địa chỉ: {{addr}}<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_1AsWWl"></div>
+  </div>
+  <div class="order-detail-page__main-content-wrapper">
+    <div>
+      <div class="pfXDjc">
+        <div class="_1LhNIx">
+          <div class="order-content__container">
+            <div class="detail-shop">
+              <div class=" order-content__header">
+                <div class="order-content__header__seller">
+                  <div class="dhm-avatar">
+                    <div class="dhm-avatar__placeholder">
+                    </div>
+                    <img class="dhm-avatar__img" src="/assets/images/dhm_logo.png">
+                  </div><span class="order-content__header__seller__name">DHM Color</span>
+                  <div class="order-content__header__seller__chat-btn"></div>
+                  <div class="order-content__header__seller__view-shop-btn"></div>
+                </div>
+                <div class="order-content__header__flex-placeholder"></div>
+                <div class="order-delivery-status__wrapper"></div>
+                <div class="order-content-status">Mã đơn : {{skuOrder}}</div>
+              </div>
+            </div>
+            <div class="order-content__item-list" *ngFor="let item of listOrderBySku">
+              <a class="order-content__item-wrapper" href="">
+                <div class="order-content__item order-content__item--last">
+                  <div class="order-content__item__col order-content__item__detail">
+                    <div class="order-content__item__product">
+                      <div class="order-content__item__image">
+                        <div class="dhm-image__wrapper">
+                          <div class="dhm-image__place-holder">
+                          </div>
+                          <div class="dhm-image__content">
+                            <div class="dhm-image__content--blur">
+                              <img [src]="'http://localhost:5000/images/' + item.productDetail.product.image" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="order-content__item__detail-content">
+                        <div class="order-content__item__name">
+                          {{item.productDetail.product.nameproduct}}</div>
+
+                        <div class="order-content__item__variation">Phân loại hàng: {{item.productDetail.size.namesize}}</div>
+                        <div class="order-content__item__quantity">x {{item.quantity}}</div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+                    <div class="order-content__item__price-text">
+                      <div class="">{{item.productDetail.priceProductDetail * item.productDetail.product.priceProduct |
+                        number}}₫
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="payment-detail__container Ovq6t9">
+          <div class="payment-detail__item">
+            <div class="payment-detail__item__description">VAT: </div>
+            <div class="payment-detail__item__value">
+              <div class="payment-detail__item__value-text">10%</div>
+            </div>
+          </div>
+          <div class="payment-detail__item payment-detail__item--last">
+            <div class="payment-detail__item__description">Tổng số tiền: </div>
+            <div class="payment-detail__item__value payment-detail__item__value--highlighted">
+              <div class="payment-detail__item__value-text">
+                <div>
+                  <div>{{totalOrder|number}}₫</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_1J7vLy">
+      <div class="DI-rNr tyOBoQ"> </div>
+      <div class="DI-rNr _25igL4"> </div>
+    </div>
+    <div></div>
+  </div>
+</div>
